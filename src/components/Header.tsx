@@ -1,5 +1,5 @@
 // src/components/Header.tsx
-// Záhlaví aplikace – název, skóre, tlačítko nové hry
+// Záhlaví: nadpis "2048" + SCORE + BEST + tlačítko NEW GAME
 import ScoreBoard from "./ScoreBoard";
 
 interface HeaderProps {
@@ -11,11 +11,11 @@ interface HeaderProps {
 export default function Header({ score, bestScore, onNewGame }: HeaderProps) {
     return (
         <header className="header">
-            <h1 className="title">2048</h1>
-            <div className="header-right">
+            <h1 className="header__title">2048</h1>
+            <div className="header__controls">
                 <ScoreBoard score={score} bestScore={bestScore} />
-                <button className="btn-new-game" onClick={onNewGame}>
-                    Nová hra
+                <button className="header__btn-new-game" onClick={onNewGame}>
+                    NEW GAME
                 </button>
             </div>
         </header>

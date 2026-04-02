@@ -1,17 +1,17 @@
 // src/components/ScoreBoard.tsx
-// Zobrazuje aktuální skóre a rekord (best score)
+// Dva boxy vedle sebe: SCORE a BEST
 import type { ScoreBoardProps } from "../types";
 
 export default function ScoreBoard({ score, bestScore }: ScoreBoardProps) {
     return (
         <div className="scoreboard">
-            <div className="score-box">
-                <span className="score-label">SKÓRE</span>
-                <span className="score-value">{score}</span>
+            <div className="scoreboard__box">
+                <span className="scoreboard__label">SCORE:</span>
+                <span className="scoreboard__value">{String(score).padStart(3, "0")}</span>
             </div>
-            <div className="score-box">
-                <span className="score-label">REKORD</span>
-                <span className="score-value">{bestScore}</span>
+            <div className="scoreboard__box">
+                <span className="scoreboard__label">BEST:</span>
+                <span className="scoreboard__value">{String(bestScore).padStart(3, "0")}</span>
             </div>
         </div>
     );
