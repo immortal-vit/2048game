@@ -1,0 +1,122 @@
+{
+  "description": "Vzorové stavy hry 2048 pro testování komponent",
+  "states": [
+    {
+      "id": "empty-start",
+      "label": "Začátek hry – 2 náhodné dlaždice",
+      "score": 0,
+      "board": [
+        [null, null, null,    null],
+        [null, {"id":1,"value":2,"position":{"row":1,"col":1},"isNew":true,"isMerged":false}, null, null],
+        [null, null, null, {"id":2,"value":4,"position":{"row":2,"col":3},"isNew":true,"isMerged":false}],
+        [null, null, null,    null]
+      ]
+    },
+    {
+      "id": "mid-game",
+      "label": "Střed hry – různé hodnoty",
+      "score": 1024,
+      "board": [
+        [
+          {"id":3,"value":256,"position":{"row":0,"col":0},"isNew":false,"isMerged":false},
+          {"id":4,"value":128,"position":{"row":0,"col":1},"isNew":false,"isMerged":false},
+          {"id":5,"value":64, "position":{"row":0,"col":2},"isNew":false,"isMerged":false},
+          {"id":6,"value":32, "position":{"row":0,"col":3},"isNew":false,"isMerged":false}
+        ],
+        [
+          {"id":7,"value":16, "position":{"row":1,"col":0},"isNew":false,"isMerged":false},
+          {"id":8,"value":8,  "position":{"row":1,"col":1},"isNew":false,"isMerged":false},
+          {"id":9,"value":4,  "position":{"row":1,"col":2},"isNew":false,"isMerged":false},
+          null
+        ],
+        [
+          {"id":10,"value":2,"position":{"row":2,"col":0},"isNew":false,"isMerged":false},
+          null, null, null
+        ],
+        [null, null, null, null]
+      ]
+    },
+    {
+      "id": "pre-win",
+      "label": "Těsně před výhrou – dlaždice 1024",
+      "score": 9876,
+      "board": [
+        [
+          {"id":11,"value":1024,"position":{"row":0,"col":0},"isNew":false,"isMerged":false},
+          {"id":12,"value":512, "position":{"row":0,"col":1},"isNew":false,"isMerged":false},
+          {"id":13,"value":256, "position":{"row":0,"col":2},"isNew":false,"isMerged":false},
+          {"id":14,"value":128, "position":{"row":0,"col":3},"isNew":false,"isMerged":false}
+        ],
+        [
+          {"id":15,"value":64,"position":{"row":1,"col":0},"isNew":false,"isMerged":false},
+          {"id":16,"value":32,"position":{"row":1,"col":1},"isNew":false,"isMerged":false},
+          {"id":17,"value":16,"position":{"row":1,"col":2},"isNew":false,"isMerged":false},
+          {"id":18,"value":8, "position":{"row":1,"col":3},"isNew":false,"isMerged":false}
+        ],
+        [
+          {"id":19,"value":4,"position":{"row":2,"col":0},"isNew":false,"isMerged":false},
+          {"id":20,"value":2,"position":{"row":2,"col":1},"isNew":false,"isMerged":false},
+          null, null
+        ],
+        [null, null, null, null]
+      ]
+    },
+    {
+      "id": "win",
+      "label": "Výhra – dlaždice 2048 dosažena",
+      "score": 20480,
+      "board": [
+        [
+          {"id":21,"value":2048,"position":{"row":0,"col":0},"isNew":false,"isMerged":true},
+          {"id":22,"value":1024,"position":{"row":0,"col":1},"isNew":false,"isMerged":false},
+          {"id":23,"value":512, "position":{"row":0,"col":2},"isNew":false,"isMerged":false},
+          {"id":24,"value":256, "position":{"row":0,"col":3},"isNew":false,"isMerged":false}
+        ],
+        [
+          {"id":25,"value":128,"position":{"row":1,"col":0},"isNew":false,"isMerged":false},
+          {"id":26,"value":64, "position":{"row":1,"col":1},"isNew":false,"isMerged":false},
+          {"id":27,"value":32, "position":{"row":1,"col":2},"isNew":false,"isMerged":false},
+          {"id":28,"value":16, "position":{"row":1,"col":3},"isNew":false,"isMerged":false}
+        ],
+        [
+          {"id":29,"value":8,"position":{"row":2,"col":0},"isNew":false,"isMerged":false},
+          {"id":30,"value":4,"position":{"row":2,"col":1},"isNew":false,"isMerged":false},
+          {"id":31,"value":2,"position":{"row":2,"col":2},"isNew":true, "isMerged":false},
+          null
+        ],
+        [null, null, null, null]
+      ]
+    },
+    {
+      "id": "game-over",
+      "label": "Konec hry – žádný možný tah",
+      "score": 4096,
+      "board": [
+        [
+          {"id":32,"value":2,  "position":{"row":0,"col":0},"isNew":false,"isMerged":false},
+          {"id":33,"value":4,  "position":{"row":0,"col":1},"isNew":false,"isMerged":false},
+          {"id":34,"value":8,  "position":{"row":0,"col":2},"isNew":false,"isMerged":false},
+          {"id":35,"value":16, "position":{"row":0,"col":3},"isNew":false,"isMerged":false}
+        ],
+        [
+          {"id":36,"value":32, "position":{"row":1,"col":0},"isNew":false,"isMerged":false},
+          {"id":37,"value":64, "position":{"row":1,"col":1},"isNew":false,"isMerged":false},
+          {"id":38,"value":128,"position":{"row":1,"col":2},"isNew":false,"isMerged":false},
+          {"id":39,"value":256,"position":{"row":1,"col":3},"isNew":false,"isMerged":false}
+        ],
+        [
+          {"id":40,"value":512, "position":{"row":2,"col":0},"isNew":false,"isMerged":false},
+          {"id":41,"value":256, "position":{"row":2,"col":1},"isNew":false,"isMerged":false},
+          {"id":42,"value":128, "position":{"row":2,"col":2},"isNew":false,"isMerged":false},
+          {"id":43,"value":64,  "position":{"row":2,"col":3},"isNew":false,"isMerged":false}
+        ],
+        [
+          {"id":44,"value":32,"position":{"row":3,"col":0},"isNew":false,"isMerged":false},
+          {"id":45,"value":16,"position":{"row":3,"col":1},"isNew":false,"isMerged":false},
+          {"id":46,"value":8, "position":{"row":3,"col":2},"isNew":false,"isMerged":false},
+          {"id":47,"value":4, "position":{"row":3,"col":3},"isNew":false,"isMerged":false}
+        ]
+      ]
+    }
+  ]
+}
