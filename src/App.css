@@ -1,184 +1,173 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
-
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
+.page {
+    min-height: 100dvh;
+    padding: 0.75rem;
 }
 
-.hero {
-  position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
+.game {
+    --panel-width: 100%;
+    --result-panel-width: min(100%, 22.5rem);
+    width: min(100%, 30rem);
+    min-height: calc(100dvh - 1.5rem);
     margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
-}
-
-#center {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
-}
-
-#next-steps {
-  display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-}
-
-#next-steps ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
+    padding: 1rem 0.9rem 1.35rem;
     display: flex;
-    padding: 6px 12px;
+    flex-direction: column;
+    border-radius: 2rem;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.48), rgba(255, 255, 255, 0.22)),
+        rgba(255, 255, 255, 0.22);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.72),
+        0 18px 36px rgba(17, 24, 39, 0.08);
+}
+
+.play-screen,
+.result-screen {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
 }
 
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
+.play-screen {
+    gap: 1.1rem;
 }
 
-.ticks {
-  position: relative;
-  width: 100%;
+.result-screen {
+    min-height: calc(100dvh - 4.25rem);
+    justify-content: flex-start;
+    gap: 1.2rem;
+    padding-top: 0.3rem;
+}
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
-  }
+.board-panel {
+    width: min(100%, var(--panel-width));
+    background: rgba(255, 255, 255, 0.58);
+    border: 1px solid rgba(255, 255, 255, 0.78);
+    box-shadow: 0 22px 48px rgba(17, 24, 39, 0.09);
+    backdrop-filter: blur(18px);
+    border-radius: 1.75rem;
+    padding: 0.9rem;
+}
 
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
-  }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
-  }
+.board-frame {
+    border-radius: 1.3rem;
+    padding: 0.55rem;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.46), rgba(255, 255, 255, 0.14));
+}
+
+.result-board {
+    width: min(100%, var(--result-panel-width));
+    margin-top: 0.35rem;
+}
+
+.result-brand {
+    margin: 0;
+    font-family: "Space Grotesk", "Sora", "Avenir Next", system-ui, sans-serif;
+    font-size: clamp(3.2rem, 15vw, 4.5rem);
+    font-weight: 700;
+    line-height: 0.92;
+    letter-spacing: -0.14rem;
+    color: var(--color-text);
+    text-align: center;
+}
+
+.result-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    text-align: center;
+}
+
+.result-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.result-title {
+    margin: 0;
+    font-family: "Space Grotesk", "Sora", "Avenir Next", system-ui, sans-serif;
+    font-size: clamp(2rem, 8vw, 2.75rem);
+    font-weight: 700;
+    line-height: 1.02;
+    letter-spacing: -0.06rem;
+    color: var(--color-text);
+}
+
+.result-score {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--color-text-muted);
+}
+
+.result-score strong {
+    color: var(--color-text);
+    font-family: "Space Grotesk", "Sora", "Avenir Next", system-ui, sans-serif;
+    font-weight: 700;
+}
+
+.result-buttons {
+    width: 100%;
+    max-width: 14rem;
+    margin-top: auto;
+    padding-top: 0.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.result-button {
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .game {
+        --panel-width: min(100%, 30rem);
+        --result-panel-width: min(100%, 25.5rem);
+        width: min(100%, 44rem);
+        min-height: calc(100dvh - 2rem);
+        padding: 1.75rem 1.5rem 2rem;
+    }
+
+    .play-screen {
+        gap: 1.35rem;
+    }
+
+    .result-screen {
+        gap: 1.45rem;
+        padding-top: 0.55rem;
+    }
+
+    .result-buttons {
+        max-width: 15rem;
+        padding-top: 0.65rem;
+    }
+
+    .result-stats {
+        gap: 0.35rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .page {
+        padding: 1.2rem;
+    }
+
+    .game {
+        --panel-width: min(100%, 33rem);
+        --result-panel-width: min(100%, 28rem);
+        width: min(100%, 52rem);
+        min-height: calc(100dvh - 2.4rem);
+        padding: 2rem 1.75rem 2.15rem;
+    }
+
+    .play-screen {
+        gap: 1.5rem;
+    }
+
+    .result-screen {
+        gap: 1.55rem;
+    }
 }
