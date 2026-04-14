@@ -11,6 +11,18 @@ import {
 } from "../utils/gameLogic";
 
 const BEST_SCORE_KEY = "2048_bestScore";
+const GAME_STATE_KEY = "2048_gameState";
+
+// Bezpečné čtení z localStorage – necrashne v private mode
+function lsGet(key: string): string | null {
+    try { return localStorage.getItem(key); }
+    catch { return null; }
+}
+
+function lsSet(key: string, value: string): void {
+    try { localStorage.setItem(key, value); }
+    catch { /* private mode – tiše ignorujeme */ }
+}
 
 function createInitialState(bestScore: number): GameState {
     let board = createEmptyBoard();
@@ -28,11 +40,32 @@ function createInitialState(bestScore: number): GameState {
     };
 }
 
+function loadSavedState(): GameState | null {
+    try {
+        const raw = lsGet(GAME_STATE_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw) as GameState;
+        // Základní validace – musí mít board 4×4
+        if (!parsed.board || parsed.board.length !== 4) return null;
+        return parsed;
+    } catch {
+        return null;
+    }
+}
+
 export function useGame() {
     const [state, setState] = useState<GameState>(() => {
-        const best = Number(localStorage.getItem(BEST_SCORE_KEY) ?? 0);
+        const saved = loadSavedState();
+        if (saved) return saved;
+        const best = Number(lsGet(BEST_SCORE_KEY) ?? 0);
         return createInitialState(best);
     });
+
+    // Ukládej stav při každé změně
+    useEffect(() => {
+        lsSet(GAME_STATE_KEY, JSON.stringify(state));
+        lsSet(BEST_SCORE_KEY, String(state.bestScore));
+    }, [state]);
 
     const newGame = useCallback(() => {
         setState(prev => createInitialState(prev.bestScore));
@@ -41,16 +74,14 @@ export function useGame() {
     const move = useCallback((direction: Direction) => {
         setState(prev => {
             if (prev.isGameOver) return prev;
-            if (prev.isWon && !prev.hasWonBefore) return prev; // čeká na volbu hráče
+            if (prev.isWon && !prev.hasWonBefore) return prev;
 
             const result = performMove(prev.board, direction);
             if (!result.moved) return prev;
 
             const newScore = prev.score + result.scoreGained;
             const newBest = Math.max(prev.bestScore, newScore);
-            localStorage.setItem(BEST_SCORE_KEY, String(newBest));
 
-            // přidej novou dlaždici
             const boardWithNew = addRandomTile(result.board);
             const tiles = boardToTiles(boardWithNew);
 
@@ -77,45 +108,33 @@ export function useGame() {
     // Klávesnice
     useEffect(() => {
         const keyMap: Record<string, Direction> = {
-            ArrowUp: "up",
-            ArrowDown: "down",
-            ArrowLeft: "left",
-            ArrowRight: "right",
+            ArrowUp: "up", ArrowDown: "down",
+            ArrowLeft: "left", ArrowRight: "right",
         };
-
         function onKey(e: KeyboardEvent) {
             const dir = keyMap[e.key];
             if (!dir) return;
             e.preventDefault();
             move(dir);
         }
-
         window.addEventListener("keydown", onKey);
         return () => window.removeEventListener("keydown", onKey);
     }, [move]);
 
-    // Swipe (touch)
+    // Swipe
     useEffect(() => {
-        let startX = 0;
-        let startY = 0;
-
+        let startX = 0, startY = 0;
         function onTouchStart(e: TouchEvent) {
             startX = e.touches[0].clientX;
             startY = e.touches[0].clientY;
         }
-
         function onTouchEnd(e: TouchEvent) {
             const dx = e.changedTouches[0].clientX - startX;
             const dy = e.changedTouches[0].clientY - startY;
             if (Math.abs(dx) < 20 && Math.abs(dy) < 20) return;
-
-            if (Math.abs(dx) > Math.abs(dy)) {
-                move(dx > 0 ? "right" : "left");
-            } else {
-                move(dy > 0 ? "down" : "up");
-            }
+            if (Math.abs(dx) > Math.abs(dy)) move(dx > 0 ? "right" : "left");
+            else move(dy > 0 ? "down" : "up");
         }
-
         window.addEventListener("touchstart", onTouchStart);
         window.addEventListener("touchend", onTouchEnd);
         return () => {
