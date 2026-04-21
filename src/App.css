@@ -30,6 +30,7 @@
 }
 
 .play-screen {
+    flex: 1;
     gap: 1.1rem;
 }
 
@@ -184,7 +185,7 @@
         touch-action: none;
     }
 
-    .swipe-board {
+    .swipe-area {
         touch-action: none;
     }
 }

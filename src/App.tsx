@@ -29,17 +29,17 @@ export default function App() {
         event.stopPropagation();
     }
 
-    function handleBoardTouchStart(event: ReactTouchEvent<HTMLDivElement>) {
+    function handleSwipeStart(event: ReactTouchEvent<HTMLElement>) {
         event.stopPropagation();
         const touch = event.touches[0];
         touchStartRef.current = { x: touch.clientX, y: touch.clientY };
     }
 
-    function handleBoardTouchMove(event: ReactTouchEvent<HTMLDivElement>) {
+    function handleSwipeMove(event: ReactTouchEvent<HTMLElement>) {
         event.stopPropagation();
     }
 
-    function handleBoardTouchEnd(event: ReactTouchEvent<HTMLDivElement>) {
+    function handleSwipeEnd(event: ReactTouchEvent<HTMLElement>) {
         event.stopPropagation();
 
         const start = touchStartRef.current;
@@ -112,19 +112,19 @@ export default function App() {
                         </div>
                     </section>
                 ) : (
-                    <section className="play-screen">
+                    <section
+                        className="play-screen swipe-area"
+                        onTouchStart={handleSwipeStart}
+                        onTouchMove={handleSwipeMove}
+                        onTouchEnd={handleSwipeEnd}
+                    >
                         <Header
                             score={state.score}
                             bestScore={state.bestScore}
                             onNewGame={newGame}
                         />
 
-                        <div
-                            className="board-panel swipe-board"
-                            onTouchStart={handleBoardTouchStart}
-                            onTouchMove={handleBoardTouchMove}
-                            onTouchEnd={handleBoardTouchEnd}
-                        >
+                        <div className="board-panel">
                             <div className="board-frame">
                                 <Board tiles={state.tiles} />
                             </div>
