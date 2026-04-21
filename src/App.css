@@ -111,8 +111,7 @@
 .result-buttons {
     width: 100%;
     max-width: 14rem;
-    margin-top: auto;
-    padding-top: 0.3rem;
+    margin-top: 0.25rem;
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
@@ -142,7 +141,7 @@
 
     .result-buttons {
         max-width: 15rem;
-        padding-top: 0.65rem;
+        margin-top: 0.35rem;
     }
 
     .result-stats {
