@@ -6,15 +6,16 @@
   "background_color": "#F7F5F2",
   "display": "standalone",
   "orientation": "portrait",
-  "start_url": "/",
+  "start_url": "/2048game/",
+  "scope": "/2048game/",
   "icons": [
     {
-      "src": "/icon-192.png",
+      "src": "/2048game/icon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/icon-512.png",
+      "src": "/2048game/icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }

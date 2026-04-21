@@ -1,5 +1,8 @@
 const CACHE = "2048-v1";
-const ASSETS = ["/", "/index.html"];
+const ASSETS = [
+    "/2048game/",
+    "/2048game/index.html"
+];
 
 self.addEventListener("install", e => {
     e.waitUntil(
