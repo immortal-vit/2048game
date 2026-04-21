@@ -30,7 +30,6 @@
 }
 
 .play-screen {
-    flex: 1;
     gap: 1.1rem;
 }
 
@@ -183,9 +182,6 @@
     .page {
         min-height: 100svh;
         touch-action: none;
-    }
-
-    .swipe-area {
-        touch-action: none;
+        overscroll-behavior: none;
     }
 }

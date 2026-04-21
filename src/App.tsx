@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import type { CSSProperties, TouchEvent as ReactTouchEvent } from "react";
+import type { CSSProperties } from "react";
 import Header from "./components/Header";
 import Board from "./components/Board";
 import { useGame } from "./hooks/useGame";
@@ -19,54 +18,13 @@ const themeVariables = {
 } as CSSProperties;
 
 export default function App() {
-    const { state, newGame, continueAfterWin, move } = useGame();
-    const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+    const { state, newGame, continueAfterWin } = useGame();
 
     const showResultScreen = state.isGameOver || (state.isWon && !state.hasWonBefore);
     const isWinScreen = state.isWon && !state.hasWonBefore;
 
-    function blockPageTouch(event: ReactTouchEvent<HTMLElement>) {
-        event.stopPropagation();
-    }
-
-    function handleSwipeStart(event: ReactTouchEvent<HTMLElement>) {
-        event.stopPropagation();
-        const touch = event.touches[0];
-        touchStartRef.current = { x: touch.clientX, y: touch.clientY };
-    }
-
-    function handleSwipeMove(event: ReactTouchEvent<HTMLElement>) {
-        event.stopPropagation();
-    }
-
-    function handleSwipeEnd(event: ReactTouchEvent<HTMLElement>) {
-        event.stopPropagation();
-
-        const start = touchStartRef.current;
-        touchStartRef.current = null;
-        if (!start) return;
-
-        const touch = event.changedTouches[0];
-        const dx = touch.clientX - start.x;
-        const dy = touch.clientY - start.y;
-
-        if (Math.abs(dx) < 20 && Math.abs(dy) < 20) return;
-
-        if (Math.abs(dx) > Math.abs(dy)) {
-            move(dx > 0 ? "right" : "left");
-        } else {
-            move(dy > 0 ? "down" : "up");
-        }
-    }
-
     return (
-        <div
-            className="page"
-            style={themeVariables}
-            onTouchStart={blockPageTouch}
-            onTouchMove={blockPageTouch}
-            onTouchEnd={blockPageTouch}
-        >
+        <div className="page" style={themeVariables}>
             <main className="game">
                 {showResultScreen ? (
                     <section className="result-screen" aria-live="polite">
@@ -112,12 +70,7 @@ export default function App() {
                         </div>
                     </section>
                 ) : (
-                    <section
-                        className="play-screen swipe-area"
-                        onTouchStart={handleSwipeStart}
-                        onTouchMove={handleSwipeMove}
-                        onTouchEnd={handleSwipeEnd}
-                    >
+                    <section className="play-screen">
                         <Header
                             score={state.score}
                             bestScore={state.bestScore}
