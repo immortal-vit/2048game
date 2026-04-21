@@ -170,3 +170,21 @@
         gap: 1.55rem;
     }
 }
+
+@media (hover: none) and (pointer: coarse) {
+    html,
+    body,
+    #root {
+        overflow: hidden;
+        overscroll-behavior: none;
+    }
+
+    .page {
+        min-height: 100svh;
+        touch-action: none;
+    }
+
+    .swipe-board {
+        touch-action: none;
+    }
+}

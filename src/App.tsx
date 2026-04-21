@@ -1,4 +1,5 @@
-import type { CSSProperties } from "react";
+import { useRef } from "react";
+import type { CSSProperties, TouchEvent as ReactTouchEvent } from "react";
 import Header from "./components/Header";
 import Board from "./components/Board";
 import { useGame } from "./hooks/useGame";
@@ -18,13 +19,54 @@ const themeVariables = {
 } as CSSProperties;
 
 export default function App() {
-    const { state, newGame, continueAfterWin } = useGame();
+    const { state, newGame, continueAfterWin, move } = useGame();
+    const touchStartRef = useRef<{ x: number; y: number } | null>(null);
 
     const showResultScreen = state.isGameOver || (state.isWon && !state.hasWonBefore);
     const isWinScreen = state.isWon && !state.hasWonBefore;
 
+    function blockPageTouch(event: ReactTouchEvent<HTMLElement>) {
+        event.stopPropagation();
+    }
+
+    function handleBoardTouchStart(event: ReactTouchEvent<HTMLDivElement>) {
+        event.stopPropagation();
+        const touch = event.touches[0];
+        touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+    }
+
+    function handleBoardTouchMove(event: ReactTouchEvent<HTMLDivElement>) {
+        event.stopPropagation();
+    }
+
+    function handleBoardTouchEnd(event: ReactTouchEvent<HTMLDivElement>) {
+        event.stopPropagation();
+
+        const start = touchStartRef.current;
+        touchStartRef.current = null;
+        if (!start) return;
+
+        const touch = event.changedTouches[0];
+        const dx = touch.clientX - start.x;
+        const dy = touch.clientY - start.y;
+
+        if (Math.abs(dx) < 20 && Math.abs(dy) < 20) return;
+
+        if (Math.abs(dx) > Math.abs(dy)) {
+            move(dx > 0 ? "right" : "left");
+        } else {
+            move(dy > 0 ? "down" : "up");
+        }
+    }
+
     return (
-        <div className="page" style={themeVariables}>
+        <div
+            className="page"
+            style={themeVariables}
+            onTouchStart={blockPageTouch}
+            onTouchMove={blockPageTouch}
+            onTouchEnd={blockPageTouch}
+        >
             <main className="game">
                 {showResultScreen ? (
                     <section className="result-screen" aria-live="polite">
@@ -77,7 +119,12 @@ export default function App() {
                             onNewGame={newGame}
                         />
 
-                        <div className="board-panel">
+                        <div
+                            className="board-panel swipe-board"
+                            onTouchStart={handleBoardTouchStart}
+                            onTouchMove={handleBoardTouchMove}
+                            onTouchEnd={handleBoardTouchEnd}
+                        >
                             <div className="board-frame">
                                 <Board tiles={state.tiles} />
                             </div>
