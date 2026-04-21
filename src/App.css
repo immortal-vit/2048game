@@ -30,7 +30,10 @@
 }
 
 .play-screen {
-    gap: 1.1rem;
+    flex: 1;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding-top: 0.2rem;
 }
 
 .result-screen {
@@ -132,6 +135,7 @@
 
     .play-screen {
         gap: 1.35rem;
+        padding-top: 0.35rem;
     }
 
     .result-screen {
@@ -164,6 +168,7 @@
 
     .play-screen {
         gap: 1.5rem;
+        padding-top: 0.45rem;
     }
 
     .result-screen {
